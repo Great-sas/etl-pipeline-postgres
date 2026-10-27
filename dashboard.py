@@ -41,6 +41,7 @@ else:
     with col2:
         st.subheader("Изменение курса за день (%)")
         # Строим график
+        # Строим график
         fig = px.bar(
             filtered_df,
             x="code",
@@ -48,6 +49,9 @@ else:
             color="diff_pct",
             color_continuous_scale=["red", "gray", "green"],
             labels={"code": "Валюта", "diff_pct": "Изменение (%)"},
-            text_auto=True
+            text_auto=True,
+            range_y=[filtered_df["diff_pct"].min() - 0.1, filtered_df["diff_pct"].max() + 0.1]  # Добавили масштаб
         )
+        # Делаем оси четкими
+        fig.update_traces(marker_line_width=1, marker_line_color="white")
         st.plotly_chart(fig, use_container_width=True)
